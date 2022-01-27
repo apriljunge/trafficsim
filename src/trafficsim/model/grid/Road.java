@@ -77,7 +77,7 @@ public class Road {
     }
 
     public void applyRules() {
-        for (int position = 0; position < this.road.length; position++) {
+        for (int position = this.road.length - 1; position >= 0; position--) {
             Vehicle v = this.road[position];
 
             if (v == null) {
@@ -95,7 +95,7 @@ public class Road {
         int from = Math.max(0, lower);
         int to = Math.min(upper, this.road.length);
 
-        for (int i = from; i < to; i++) {
+        for (int i = from; i <= to; i++) {
             if (this.road[i] != null) {
                 return false;
             }
@@ -105,9 +105,9 @@ public class Road {
     }
 
     public int getDistanceToNextCar(int position) {
-        for (int i = position; i < this.road.length; i++) {
+        for (int i = position + 1; i < this.road.length; i++) {
             if (this.road[i] != null) {
-                return i - position - (this.road[i].getLength() + (int)Math.ceil((double)this.maxV / 2));
+                return i - position - this.road[i].getLength() - (int)Math.ceil(this.maxV / 2);
             }
         }
 
@@ -140,7 +140,7 @@ public class Road {
 
         if (isDawdling()) {
             if (speed > 0) {
-                v.setSpeed(speed + 1);
+                v.setSpeed(speed - 1);
             }
         }
     }
@@ -158,9 +158,9 @@ public class Road {
     }
 
     private boolean isFirst(Vehicle v) {
-        for (Vehicle vehicle:this.road) {
-            if (vehicle != null) {
-                return vehicle == v;
+        for (int i = this.road.length - 1; i >= 0; i--) {
+            if (this.road[i] != null) {
+                return this.road[i] == v;
             }
         }
 
@@ -168,18 +168,27 @@ public class Road {
     }
 
     private int distanceToEnd(int position) {
-        return this.road.length - position;
+        return this.road.length - position - 1;
     }
 
     private boolean isDawdling() {
-        return rnd.nextDouble() < this.dawdleFactor;
+        return rnd.nextDouble() <= this.dawdleFactor;
     }
 
     private void transfer(Vehicle v, int position) {
-        // TODO
+        int distanceToEnd = distanceToEnd(position);
+        int newPosition = v.getSpeed() - distanceToEnd;
+
+        if (roadEnd.canMoveTo(newPosition)) {
+            roadEnd.transferVehicle(this, v, newPosition);
+        } else {
+            v.setSpeed(distanceToEnd);
+            moveForward(v, position);
+        }
     }
 
     private void moveForward(Vehicle v, int position) {
-        // TODO
+        this.road[position] = null;
+        this.road[position + v.getSpeed()] = v;
     }
 }

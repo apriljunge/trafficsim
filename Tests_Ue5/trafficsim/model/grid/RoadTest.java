@@ -7,6 +7,7 @@ import trafficsim.model.traffic.Vehicle;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,10 +50,11 @@ class RoadTest{
 
     @Test
     void clearTest(){
-        String temp = r1.getRoad().toString();
+        r1.addVehicle(c1, 0);
+        r1.addVehicle(c2, 49);
         r1.clearRoad();
-        assertNotEquals(temp, r1.getRoad().toString());
-
+        Vehicle[] expected=new Vehicle[r1.getLength()];
+        assertArrayEquals(expected, r1.getRoad());
     }
 
 }
