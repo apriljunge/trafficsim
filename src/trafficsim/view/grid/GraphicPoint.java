@@ -37,7 +37,6 @@ public class GraphicPoint {
 
     public void paint(Graphics2D g2d) {
         g2d.setColor(this.FILL);
-        System.out.println(this.FILL);
         g2d.fillOval((int) point.getX() -  this.RADIUS, (int) point.getY() - this.RADIUS, 2 * this.RADIUS, 2 * this.RADIUS);
         g2d.setColor(this.BORDER);
         g2d.setStroke(this.STROKE);
