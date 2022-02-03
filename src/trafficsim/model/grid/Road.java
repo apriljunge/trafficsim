@@ -118,7 +118,7 @@ public class Road {
         int speed = v.getSpeed();
 
         if (speed < this.maxV) {
-            v.setSpeed(speed + 1);
+            v.setSpeed(speed + v.getAccelerationParameter());
         }
     }
 
@@ -140,7 +140,7 @@ public class Road {
 
         if (isDawdling()) {
             if (speed > 0) {
-                v.setSpeed(speed - 1);
+                v.setSpeed(speed - v.getAccelerationParameter());
             }
         }
     }

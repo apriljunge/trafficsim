@@ -7,6 +7,7 @@ public class Vehicle {
     protected int length;
     protected int width;
     protected Color color;
+    protected int accelerationParameter;
 
     public int getSpeed() {
         return speed;
@@ -38,5 +39,13 @@ public class Vehicle {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public int getAccelerationParameter() {
+        return accelerationParameter;
+    }
+
+    public void setAccelerationParameter(int accelerationParameter) {
+        this.accelerationParameter = accelerationParameter;
     }
 }

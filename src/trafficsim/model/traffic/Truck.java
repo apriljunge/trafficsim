@@ -8,5 +8,6 @@ public class Truck extends Vehicle {
         super.length = 20;
         super.width = 5;
         super.color = Color.BLACK;
+        super.accelerationParameter = 1;
     }
 }

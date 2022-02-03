@@ -8,5 +8,6 @@ public class Car extends Vehicle {
         super.length = 9;
         super.width = 3;
         super.color = Color.BLUE;
+        super.accelerationParameter = 2;
     }
 }
