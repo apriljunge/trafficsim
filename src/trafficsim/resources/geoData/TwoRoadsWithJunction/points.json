@@ -1,0 +1,32 @@
+{
+  "points": [
+    {
+      "id": 1,
+      "x": 100,
+      "y": 100,
+      "type": "Source",
+      "sourcingFactor": 0.1
+    },
+    {
+      "id": 2,
+      "x": 1000,
+      "y": 100,
+      "type": "Point",
+      "sourcingFactor": 0
+    },
+    {
+      "id": 3,
+      "x": 500,
+      "y": 100,
+      "type": "Junction",
+      "sourcingFactor": 0
+    },
+    {
+      "id": 4,
+      "x": 500,
+      "y": 600,
+      "type": "Source",
+      "sourcingFactor": 0.12
+    }
+  ]
+}

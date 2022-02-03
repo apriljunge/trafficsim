@@ -1,0 +1,5 @@
+{
+  "roads": [
+    {"id": 1, "width": 3, "source": 1, "sink": 2,"maxV": 5, "density": 0.04, "dally": 0.2}
+  ]
+}

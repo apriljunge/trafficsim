@@ -1,0 +1,6 @@
+{
+  "points": [
+    {"id": 1,"x": 100,"y": 100,"type": "Source","sourcingFactor": 0.25},
+    {"id": 2, "x": 1000, "y": 100, "type": "Point", "sourcingFactor": 0}
+  ]
+}
