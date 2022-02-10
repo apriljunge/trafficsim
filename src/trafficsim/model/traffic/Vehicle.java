@@ -8,6 +8,8 @@ public class Vehicle {
     protected int width;
     protected Color color;
     protected int accelerationParameter;
+    protected boolean isBraking;
+    protected boolean isBrakingForNextTimeStep;
 
     public int getSpeed() {
         return speed;
@@ -47,5 +49,21 @@ public class Vehicle {
 
     public void setAccelerationParameter(int accelerationParameter) {
         this.accelerationParameter = accelerationParameter;
+    }
+
+    public boolean isBraking() {
+        return isBraking;
+    }
+
+    public void setBraking(boolean braking) {
+        isBraking = braking;
+    }
+
+    public boolean isBrakingForNextTimeStep() {
+        return isBrakingForNextTimeStep;
+    }
+
+    public void setBrakingForNextTimeStep(boolean brakingForNextTimeStep) {
+        isBrakingForNextTimeStep = brakingForNextTimeStep;
     }
 }

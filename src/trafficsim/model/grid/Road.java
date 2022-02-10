@@ -84,9 +84,12 @@ public class Road {
                 continue;
             }
 
+            v.setBraking(v.isBrakingForNextTimeStep());
+            v.setBrakingForNextTimeStep(false);
+
             accelerate(v);
             brake(v, position);
-            dawdle(v);
+            dawdle(v, position);
             move(v, position);
         }
     }
@@ -117,6 +120,11 @@ public class Road {
     private void accelerate(Vehicle v) {
         int speed = v.getSpeed();
 
+        this.dawdleFactor = 0.5;
+        if (speed > 0) {
+            this.dawdleFactor = 0.1;
+        }
+
         if (speed < this.maxV) {
             v.setSpeed(speed + v.getAccelerationParameter());
         }
@@ -125,6 +133,7 @@ public class Road {
     private void brake(Vehicle v, int position) {
         int distanceToNextCar = getDistanceToNextCar(position);
         int distanceToEnd = distanceToEnd(position);
+        int initialSpeed = v.getSpeed();
 
         if (distanceToNextCar <= v.getSpeed()) {
             v.setSpeed(distanceToNextCar - 1);
@@ -133,12 +142,14 @@ public class Road {
         if (distanceToEnd < 2 * this.maxV && v.getSpeed() > 1) {
             v.setSpeed(v.getSpeed() - 1);
         }
+
+        v.setBraking(initialSpeed > v.getSpeed());
     }
 
-    private void dawdle(Vehicle v) {
+    private void dawdle(Vehicle v, int position) {
         int speed = v.getSpeed();
 
-        if (isDawdling()) {
+        if (isDawdling(position)) {
             if (speed > 0) {
                 v.setSpeed(speed - v.getAccelerationParameter());
             }
@@ -171,8 +182,22 @@ public class Road {
         return this.road.length - position - 1;
     }
 
-    private boolean isDawdling() {
-        return rnd.nextDouble() <= this.dawdleFactor;
+    private boolean isDawdling(int position) {
+        double dawdleFactor = this.dawdleFactor;
+        boolean nextVBreakingInNextStep = false;
+
+        for (int i = position; i < road.length; i++) {
+            if (road[i] != null) {
+                nextVBreakingInNextStep = road[i].isBrakingForNextTimeStep();
+                break;
+            }
+        }
+
+        if (nextVBreakingInNextStep && isInReactionHorizon(position)) {
+            dawdleFactor = 0.94;
+        }
+
+        return rnd.nextDouble() <= dawdleFactor;
     }
 
     private void transfer(Vehicle v, int position) {
@@ -190,5 +215,14 @@ public class Road {
     private void moveForward(Vehicle v, int position) {
         this.road[position] = null;
         this.road[position + v.getSpeed()] = v;
+    }
+
+    private boolean isInReactionHorizon(int position) {
+        int speed = road[position].getSpeed();
+        if (speed == 0)  {
+            return false;
+        }
+
+        return getDistanceToNextCar(position) / speed < 7;
     }
 }
