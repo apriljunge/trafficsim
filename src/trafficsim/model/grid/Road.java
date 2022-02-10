@@ -128,7 +128,7 @@ public class Road {
         }
 
         if (speed < this.maxV) {
-            v.setSpeed(speed + v.getAccelerationParameter());
+            v.setSpeed(Math.min(speed + v.getAccelerationParameter(), this.maxV));
         }
     }
 
