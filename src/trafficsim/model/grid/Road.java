@@ -92,6 +92,7 @@ public class Road {
             brake(v, position);
             dawdle(v, position);
             move(v, position);
+            v.setSpeedColor();
         }
     }
 

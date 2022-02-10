@@ -47,6 +47,12 @@ public class Vehicle {
         this.color = color;
     }
 
+    public void setSpeedColor() {
+        float maxV = 5;
+        float hue = ((float)this.speed / maxV) * 0.3f;
+        this.color = Color.getHSBColor(hue, 1.0f, 0.8f);
+    }
+
     public int getAccelerationParameter() {
         return accelerationParameter;
     }
