@@ -61,6 +61,7 @@ public class Road {
 
     public void addVehicle(Vehicle v, int position) {
         this.road[position] = v;
+        v.addPassedRoad(this);
     }
 
     public void removeVehicle(Vehicle v) {

@@ -1,6 +1,9 @@
 package trafficsim.model.traffic;
 
+import trafficsim.model.grid.Road;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Vehicle {
     protected int speed;
@@ -10,6 +13,7 @@ public class Vehicle {
     protected int accelerationParameter;
     protected boolean isBraking;
     protected boolean isBrakingForNextTimeStep;
+    protected ArrayList<Road> passedRoads = new ArrayList<>(0);
 
     public int getSpeed() {
         return speed;
@@ -49,6 +53,14 @@ public class Vehicle {
 
     public void setAccelerationParameter(int accelerationParameter) {
         this.accelerationParameter = accelerationParameter;
+    }
+
+    public ArrayList<Road> getPassedRoads() {
+        return passedRoads;
+    }
+
+    public void addPassedRoad(Road road) {
+        this.passedRoads.add(road);
     }
 
     public boolean isBraking() {
